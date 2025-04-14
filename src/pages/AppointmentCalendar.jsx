@@ -97,96 +97,102 @@ function AppointmentCalendar({ appointmentData, updateAppointment }) {
   return (
     <div className="bg-gradient-to-b from-blue-800 to-blue-600 text-white">
       {/* Hero Section */}
-      <div className="max-w-6xl mx-auto px-4 py-12">
+      <div className="max-w-6xl mx-auto px-4 py-8 md:py-12">
         <div className="text-center mb-6">
-          <h1 className="text-4xl font-bold mb-3">Choose Your Appointment Time</h1>
+          <h1 className="text-2xl md:text-4xl font-bold mb-3">Choose Your Appointment Time</h1>
           {appointmentData.service && (
-            <p className="text-blue-100 text-lg">
-              Scheduling for: <span className="font-medium">{appointmentData.service.name}</span> 
-              {" • "}<span>{appointmentData.service.duration} minutes</span>
-              {" • "}<span>{appointmentData.service.price}</span>
+            <p className="text-blue-100 text-sm md:text-lg">
+              <span className="font-medium block md:inline">{appointmentData.service.name}</span> 
+              <span className="hidden md:inline"> • </span>
+              <span className="block md:inline">{appointmentData.service.duration} minutes</span>
+              <span className="hidden md:inline"> • </span>
+              <span className="block md:inline">{appointmentData.service.price}</span>
             </p>
           )}
         </div>
       </div>
       
       {/* Calendar Section */}
-      <div className="bg-gray-50 rounded-t-3xl py-12 text-gray-800">
+      <div className="bg-gray-50 rounded-t-3xl py-8 md:py-12 text-gray-800">
         <div className="max-w-4xl mx-auto px-4">
           {/* Calendar navigation */}
-          <div className="flex justify-between items-center mb-8 bg-white p-4 rounded-xl shadow-sm">
+          <div className="flex flex-col sm:flex-row justify-between items-center mb-6 md:mb-8 bg-white p-3 md:p-4 rounded-xl shadow-sm">
             <button 
               onClick={prevWeek}
-              className="px-4 py-2 flex items-center bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors font-medium"
+              className="w-full sm:w-auto mb-3 sm:mb-0 px-3 py-2 flex items-center justify-center bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors font-medium text-sm md:text-base"
             >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Previous Week
+              <ArrowLeft className="w-4 h-4 mr-1 md:mr-2" />
+              <span className="whitespace-nowrap">Previous Week</span>
             </button>
             
-            <div className="flex items-center">
-              <Calendar className="w-5 h-5 text-blue-500 mr-2" />
-              <span className="font-medium text-gray-700">
-                {format(currentWeekStart, 'MMMM d')} - {format(addDays(currentWeekStart, 6), 'MMMM d, yyyy')}
+            <div className="flex items-center mb-3 sm:mb-0">
+              <Calendar className="w-4 h-4 md:w-5 md:h-5 text-blue-500 mr-1 md:mr-2" />
+              <span className="font-medium text-gray-700 text-sm md:text-base">
+                {format(currentWeekStart, 'MMM d')} - {format(addDays(currentWeekStart, 6), 'MMM d, yyyy')}
               </span>
             </div>
             
             <button 
               onClick={nextWeek}
-              className="px-4 py-2 flex items-center bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors font-medium"
+              className="w-full sm:w-auto px-3 py-2 flex items-center justify-center bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors font-medium text-sm md:text-base"
             >
-              Next Week
-              <ArrowRight className="w-4 h-4 ml-2" />
+              <span className="whitespace-nowrap">Next Week</span>
+              <ArrowRight className="w-4 h-4 ml-1 md:ml-2" />
             </button>
           </div>
 
-          {/* Days of the week */}
-          <div className="grid grid-cols-7 gap-3 mb-8">
-            {weekAvailability.map((day, index) => (
-              <div 
-                key={index} 
-                className={`text-center p-4 rounded-xl cursor-pointer transition-all duration-200 ${
-                  day.timeSlots.length === 0 
-                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
-                    : isSameDay(day.date, selectedDate)
-                      ? 'bg-blue-500 text-white shadow-md transform scale-105'
-                      : 'bg-white shadow-sm hover:shadow hover:bg-blue-50'
-                }`}
-                onClick={() => handleDateSelect(day)}
-              >
-                <div className={`font-medium text-sm mb-1 ${
-                  isSameDay(day.date, selectedDate) ? 'text-blue-100' : 'text-blue-500'
-                }`}>
-                  {format(day.date, 'EEE')}
-                </div>
-                <div className="text-2xl font-bold">
-                  {format(day.date, 'd')}
-                </div>
-                {day.timeSlots.length > 0 && (
-                  <div className={`text-xs mt-1 ${
-                    isSameDay(day.date, selectedDate) ? 'text-blue-100' : 'text-gray-500'
+          {/* Days of the week - Scrollable on small screens */}
+          <div className="overflow-x-auto pb-2 mb-4 md:pb-0 md:mb-8">
+            <div className="grid grid-cols-7 gap-2 md:gap-3 min-w-md md:min-w-0">
+              {weekAvailability.map((day, index) => (
+                <div 
+                  key={index} 
+                  className={`text-center p-2 md:p-4 rounded-xl cursor-pointer transition-all duration-200 ${
+                    day.timeSlots.length === 0 
+                      ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+                      : isSameDay(day.date, selectedDate)
+                        ? 'bg-blue-500 text-white shadow-md transform scale-105'
+                        : 'bg-white shadow-sm hover:shadow hover:bg-blue-50'
+                  }`}
+                  onClick={() => handleDateSelect(day)}
+                >
+                  <div className={`font-medium text-xs md:text-sm mb-1 ${
+                    isSameDay(day.date, selectedDate) ? 'text-blue-100' : 'text-blue-500'
                   }`}>
-                    {day.timeSlots.length} slots
+                    {format(day.date, 'EEE')}
                   </div>
-                )}
-              </div>
-            ))}
+                  <div className="text-lg md:text-2xl font-bold">
+                    {format(day.date, 'd')}
+                  </div>
+                  {day.timeSlots.length > 0 && (
+                    <div className={`text-xs mt-1 ${
+                      isSameDay(day.date, selectedDate) ? 'text-blue-100' : 'text-gray-500'
+                    }`}>
+                      {day.timeSlots.length} slots
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Time slots */}
           {selectedDate ? (
-            <div className="bg-white rounded-xl p-6 shadow-sm">
-              <h2 className="text-xl font-semibold mb-4 flex items-center">
-                <Clock className="w-5 h-5 text-blue-500 mr-2" />
-                Available times for {format(selectedDate, 'EEEE, MMMM d')}:
+            <div className="bg-white rounded-xl p-4 md:p-6 shadow-sm">
+              <h2 className="text-lg md:text-xl font-semibold mb-3 md:mb-4 flex items-center">
+                <Clock className="w-4 h-4 md:w-5 md:h-5 text-blue-500 mr-2" />
+                <span className="truncate">
+                  Times for {format(selectedDate, 'EEE, MMM d')}:
+                </span>
               </h2>
               
-              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 md:gap-3">
                 {weekAvailability
                   .find(day => isSameDay(day.date, selectedDate))
                   ?.timeSlots.map((slot, index) => (
                     <button
                       key={index}
-                      className={`py-3 px-2 border rounded-lg text-center transition-all duration-200 relative ${
+                      className={`py-2 md:py-3 px-1 md:px-2 border rounded-lg text-center transition-all duration-200 relative ${
                         selectedTime === slot.time
                           ? 'bg-blue-500 text-white border-blue-500 shadow-md'
                           : 'hover:bg-blue-50 border-gray-200'
@@ -195,10 +201,10 @@ function AppointmentCalendar({ appointmentData, updateAppointment }) {
                     >
                       {selectedTime === slot.time && (
                         <span className="absolute top-1 right-1">
-                          <CheckCircle className="w-4 h-4 text-blue-100" />
+                          <CheckCircle className="w-3 h-3 md:w-4 md:h-4 text-blue-100" />
                         </span>
                       )}
-                      <span className="text-lg">
+                      <span className="text-sm md:text-lg">
                         {format(new Date().setHours(parseInt(slot.time.split(':')[0]), parseInt(slot.time.split(':')[1])), 'h:mm a')}
                       </span>
                     </button>
@@ -214,15 +220,15 @@ function AppointmentCalendar({ appointmentData, updateAppointment }) {
               )}
             </div>
           ) : (
-            <div className="bg-white rounded-xl p-6 shadow-sm text-center">
-              <p className="text-gray-500">Please select a day to view available appointment times.</p>
+            <div className="bg-white rounded-xl p-4 md:p-6 shadow-sm text-center">
+              <p className="text-gray-500 text-sm md:text-base">Please select a day to view available appointment times.</p>
             </div>
           )}
 
           {/* Continue button */}
-          <div className="mt-8 flex justify-center">
+          <div className="mt-6 md:mt-8 flex justify-center">
             <button
-              className={`flex items-center justify-center px-8 py-4 rounded-lg text-lg font-medium transition-all duration-300 
+              className={`flex items-center justify-center w-full sm:w-auto px-4 sm:px-8 py-3 sm:py-4 rounded-lg text-base md:text-lg font-medium transition-all duration-300 
                 ${selectedDate && selectedTime 
                   ? 'bg-blue-500 text-white hover:bg-blue-600 shadow-lg shadow-blue-100 hover:shadow-xl transform hover:-translate-y-1' 
                   : 'bg-gray-300 text-gray-500 cursor-not-allowed'
@@ -230,17 +236,17 @@ function AppointmentCalendar({ appointmentData, updateAppointment }) {
               onClick={handleContinue}
               disabled={!(selectedDate && selectedTime)}
             >
-              Continue to Patient Information
-              <ArrowRight className="ml-2 w-5 h-5" />
+              Continue
+              <ArrowRight className="ml-2 w-4 h-4 md:w-5 md:h-5" />
             </button>
           </div>
           
           {/* Progress indicator */}
-          <div className="flex justify-center mt-10">
-            <div className="flex items-center space-x-3">
-              <div className="h-2 w-10 rounded-full bg-blue-500"></div>
-              <div className="h-2 w-10 rounded-full bg-blue-500"></div>
-              <div className="h-2 w-10 rounded-full bg-gray-300"></div>
+          <div className="flex justify-center mt-8 md:mt-10">
+            <div className="flex items-center space-x-2 md:space-x-3">
+              <div className="h-1 md:h-2 w-8 md:w-10 rounded-full bg-blue-500"></div>
+              <div className="h-1 md:h-2 w-8 md:w-10 rounded-full bg-blue-500"></div>
+              <div className="h-1 md:h-2 w-8 md:w-10 rounded-full bg-gray-300"></div>
             </div>
           </div>
         </div>
