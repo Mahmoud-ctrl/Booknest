@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Clock, DollarSign, ArrowRight, CheckCircle } from 'lucide-react';
 import {
@@ -68,6 +68,10 @@ function ServiceSelection({ updateAppointment }) {
   const handleServiceSelect = (service) => {
     setSelectedService(service);
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [])
 
   const handleContinue = () => {
     if (selectedService) {

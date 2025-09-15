@@ -1,20 +1,15 @@
-// src/pages/AppointmentCalendar.jsx
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { format, addDays, startOfWeek, addWeeks, isSameDay } from 'date-fns';
 import { ArrowRight, ArrowLeft, Calendar, Clock, CheckCircle } from 'lucide-react';
 
-// Generate dummy available time slots
 const generateTimeSlots = (date) => {
-  // Simulate available time slots (9am to 5pm with some randomly unavailable)
   const slots = [];
   const startHour = 9;
   const endHour = 17;
   
   for (let hour = startHour; hour < endHour; hour++) {
-    // Add half-hour slots
     [0, 30].forEach(minutes => {
-      // Randomly make some slots unavailable (about 30%)
       const available = Math.random() > 0.3;
       
       if (available) {
@@ -29,7 +24,6 @@ const generateTimeSlots = (date) => {
   return slots;
 };
 
-// Generate dummy data for a week of appointments
 const generateWeekAvailability = (startDate) => {
   const weekDays = [];
   
@@ -61,6 +55,10 @@ function AppointmentCalendar({ appointmentData, updateAppointment }) {
     setCurrentWeekStart(nextWeekStart);
     setWeekAvailability(generateWeekAvailability(nextWeekStart));
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   // Move to previous week (don't allow past weeks)
   const prevWeek = () => {
@@ -141,7 +139,7 @@ function AppointmentCalendar({ appointmentData, updateAppointment }) {
             </button>
           </div>
 
-          {/* Days of the week - Scrollable on small screens */}
+          {/* Days of the week */}
           <div className="overflow-x-auto pb-2 mb-4 md:pb-0 md:mb-8">
             <div className="grid grid-cols-7 gap-2 md:gap-3 min-w-md md:min-w-0">
               {weekAvailability.map((day, index) => (

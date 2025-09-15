@@ -9,13 +9,12 @@ function ConfirmationPage({ appointmentData }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate API call to create appointment
     setTimeout(() => {
-      // Generate a random appointment ID
       const randomId = Math.random().toString(36).substring(2, 10).toUpperCase();
       setAppointmentId(randomId);
       setIsLoading(false);
     }, 1500);
+    window.scrollTo(0, 0);
   }, []);
 
   // If essential data is missing, redirect to home
@@ -40,7 +39,7 @@ function ConfirmationPage({ appointmentData }) {
 
   if (isLoading) {
     return (
-      <div className="bg-gradient-to-b from-blue-800 to-blue-600 text-white min-h-screen flex items-center justify-center">
+      <div className="text-white min-h-screen flex items-center justify-center">
         <div className="text-center py-10 max-w-md mx-auto bg-white text-gray-800 rounded-xl shadow-lg p-8">
           <div className="inline-block h-12 w-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4"></div>
           <p className="text-lg">Confirming your appointment...</p>
@@ -157,7 +156,7 @@ function ConfirmationPage({ appointmentData }) {
             </button>
             
             <button
-              onClick={() => navigate('/')}
+              onClick={() => navigate('/services')}
               className="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-all flex items-center justify-center"
             >
               <ArrowRight className="w-4 h-4 mr-2" />

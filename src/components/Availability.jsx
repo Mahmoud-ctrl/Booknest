@@ -29,7 +29,6 @@ function AvailabilityPage() {
   };
 
   const handleSaveAvailability = () => {
-    // In a real app, this would update the backend
     const updatedAvailability = availability.map(day => 
       day.id === editingAvailability.id ? { ...day, slots: updatedSlots } : day
     );
@@ -37,7 +36,6 @@ function AvailabilityPage() {
     setIsEditing(false);
     setEditingAvailability(null);
     
-    // Show success toast
     setShowSuccessToast(true);
     setTimeout(() => setShowSuccessToast(false), 3000);
   };
@@ -70,7 +68,6 @@ function AvailabilityPage() {
         </div>
       </div>
 
-      {/* Calendar Week View - Hidden on small screens */}
       <div className="mb-6 md:mb-8 bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden hidden md:block">
         <div className="bg-gradient-to-r from-blue-50 to-white px-4 md:px-6 py-3 md:py-4 border-b border-gray-100">
           <h2 className="text-base md:text-lg font-semibold text-gray-800 flex items-center">
@@ -115,7 +112,6 @@ function AvailabilityPage() {
         </div>
       </div>
 
-      {/* Mobile Accordion View - Only visible on small screens */}
       <div className="md:hidden mb-6 bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
         <div className="bg-gradient-to-r from-blue-50 to-white px-4 py-3 border-b border-gray-100">
           <h2 className="text-base font-semibold text-gray-800 flex items-center">
@@ -180,7 +176,6 @@ function AvailabilityPage() {
         </div>
       </div>
 
-      {/* Detailed Table - Hidden on mobile */}
       <div className="hidden md:block bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
         <table className="w-full">
           <thead>
@@ -252,7 +247,6 @@ function AvailabilityPage() {
         </table>
       </div>
 
-      {/* Exceptions Section */}
       <div className="mt-6 md:mt-8 bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
         <div className="bg-gradient-to-r from-amber-50 to-white px-4 md:px-6 py-3 md:py-4 border-b border-gray-100">
           <h2 className="text-base md:text-lg font-semibold text-gray-800 flex items-center">

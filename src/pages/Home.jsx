@@ -68,7 +68,6 @@ const stats = [
   { label: "Procedures", value: "20+" }
 ];
 
-// Custom hook for scroll animations
 function useScrollAnimation() {
   const [scrollY, setScrollY] = useState(0);
   
@@ -84,7 +83,6 @@ function useScrollAnimation() {
   return scrollY;
 }
 
-// Custom hook for intersection observer
 function useInView(options) {
   const [ref, setRef] = useState(null);
   const [isInView, setIsInView] = useState(false);
@@ -114,8 +112,7 @@ export default function HomePage() {
   const [servicesRef, servicesInView] = useInView({ threshold: 0.1 });
   const [statsRef, statsInView] = useInView({ threshold: 0.1 });
   const [contactRef, contactInView] = useInView({ threshold: 0.1 });
-  
-  // Animation variants
+
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
     visible: { 

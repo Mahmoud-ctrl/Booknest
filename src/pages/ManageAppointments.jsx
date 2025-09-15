@@ -97,9 +97,13 @@ function ManageAppointments() {
     setShowRescheduleForm(false);
   };
 
+  useEffect (() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   if (isLoading) {
     return (
-      <div className="bg-gradient-to-b from-blue-800 to-blue-600 text-white min-h-screen flex items-center justify-center">
+      <div className="text-white min-h-screen flex items-center justify-center">
         <div className="text-center py-10 max-w-md mx-auto bg-white text-gray-800 rounded-xl shadow-lg p-8">
           <div className="inline-block h-12 w-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4"></div>
           <p className="text-lg">Loading appointment details...</p>

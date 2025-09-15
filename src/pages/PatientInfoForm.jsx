@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import { ArrowRight, ArrowLeft, Calendar, Clock, Check, Info, User, Mail, Phone, FileText } from 'lucide-react';
@@ -13,6 +13,10 @@ function PatientInfoForm({ appointmentData, updateAppointment }) {
   });
   const [errors, setErrors] = useState({});
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -20,7 +24,6 @@ function PatientInfoForm({ appointmentData, updateAppointment }) {
       [name]: value
     });
     
-    // Clear error when user types
     if (errors[name]) {
       setErrors({
         ...errors,
@@ -66,12 +69,12 @@ function PatientInfoForm({ appointmentData, updateAppointment }) {
   // If service or date/time not selected, redirect back
   if (!appointmentData.service || !appointmentData.date || !appointmentData.time) {
     return (
-      <div className="bg-gradient-to-b from-blue-800 to-blue-600 text-white min-h-screen flex items-center justify-center">
+      <div className="text-white min-h-screen flex items-center justify-center">
         <div className="text-center py-10 max-w-md mx-auto bg-white text-gray-800 rounded-xl shadow-lg p-8">
           <Info className="w-16 h-16 text-blue-500 mx-auto mb-4" />
           <p className="text-lg mb-6">Please select a service and appointment time first.</p>
           <button
-            onClick={() => navigate('/')}
+            onClick={() => navigate('/services')}
             className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors font-medium flex items-center justify-center mx-auto"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
