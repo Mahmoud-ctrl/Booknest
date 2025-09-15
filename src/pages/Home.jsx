@@ -201,6 +201,11 @@ export default function HomePage() {
                   Explore Services
                 </a>
               </motion.div>
+              <div className="mt-6 text-sm text-gray-500 text-center underline cursor-pointer hover:text-blue-600">
+                  <Link to="/admin/login">
+                Demo: Admin Dashboard
+                </Link>
+                </div>
             </motion.div>
             
             <motion.div 

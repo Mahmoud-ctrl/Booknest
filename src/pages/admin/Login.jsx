@@ -17,8 +17,7 @@ function AdminLogin() {
       ...credentials,
       [name]: value
     });
-    
-    // Clear error when user types
+
     if (error) setError('');
   };
 
@@ -26,11 +25,8 @@ function AdminLogin() {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulate API call for authentication
     setTimeout(() => {
-      // Simple validation - in a real app, this would be handled by a backend
       if (credentials.email === 'admin@dentalclinic.com' && credentials.password === 'password123') {
-        // Store authentication token in localStorage (this would be a JWT in a real app)
         localStorage.setItem('adminToken', 'dummy-auth-token');
         navigate('/admin/dashboard');
       } else {
